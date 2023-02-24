@@ -56,6 +56,10 @@ For example: To run a single node dev mode server, you just run `popple server -
 ...
 ```
 
+## Testing
+
+Run `make test` in root source folder to view high availability on conditions like leader down, network partition...And so forth.
+
 How to contact?
 ===============
 
