@@ -1,0 +1,19 @@
+version: v1
+plugins:
+  - name: go
+    out: internal/proto
+    opt:
+      - paths=source_relative
+  - name: go-grpc
+    out: internal/proto
+    opt:
+      - paths=source_relative
+      - require_unimplemented_servers=false
+  - name: grpc-gateway
+    out: internal/proto
+    opt:
+      - paths=source_relative
+  - name: openapiv2
+    out: openapi
+    opt:
+      - json_names_for_fields=false

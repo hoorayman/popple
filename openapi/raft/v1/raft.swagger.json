@@ -1,0 +1,103 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "raft/v1/raft.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "RaftService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1AppendEntriesResponse": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "string",
+          "format": "int64",
+          "description": "term number",
+          "title": "currentTerm, for leader to update itself"
+        },
+        "success": {
+          "type": "boolean",
+          "description": "success",
+          "title": "true if follower contained entry matching prevLogIndex and prevLogTerm"
+        }
+      },
+      "title": "The response body for AppendEntries"
+    },
+    "v1LogEntry": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "format": "byte",
+          "description": "command",
+          "title": "command"
+        },
+        "term": {
+          "type": "string",
+          "format": "int64",
+          "description": "term number",
+          "title": "term"
+        }
+      },
+      "title": "LogEntry"
+    },
+    "v1RequestVoteResponse": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "string",
+          "format": "int64",
+          "description": "term number",
+          "title": "currentTerm, for candidate to update itself"
+        },
+        "vote_granted": {
+          "type": "boolean",
+          "description": "vote granted",
+          "title": "true means candidate received vote"
+        }
+      },
+      "title": "The response body for RequestVote"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+go mod tidy
+buf lint
+buf breaking --against .git
+make fmt
+make imports

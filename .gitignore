@@ -1,15 +1,35 @@
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# Test binary, built with `go test -c`
-*.test
+# IDE - VSCode
+.vscode/*
 
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
+# System Files
+.DS_Store
+Thumbs.db
+/.run
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+# Binary file
+bin
+vendor
+
+# Tmp file
+gl-code-quality-report.json
+
+# Sonarqube file
+.scannerwork
+
+# fsm data
+/data
+
+# raft log
+/rlog
+
+# a toml config file
+/config.toml

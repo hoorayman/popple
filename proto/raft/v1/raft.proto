@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package raft.v1;
+option go_package = "github.com/hoorayman/popple/proto/raft/v1";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// RaftService APIs
+service RaftService {
+  // Invoked by candidates to gather votes
+  rpc RequestVote(RequestVoteRequest) returns (RequestVoteResponse);
+  // Invoked by leader to replicate log entries; also used as heartbeat
+  rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesResponse);
+}
+
+// The request payload for RequestVote
+message RequestVoteRequest {
+  // candidate’s term
+  int64 term = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "term number",
+  }];
+  // candidate requesting vote
+  int64 candidate_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "candidate id",
+  }];
+  // index of candidate’s last log entry
+  int64 last_log_index = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "last log index",
+  }];
+  // term of candidate’s last log entry
+  int64 last_log_term = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "last log term",
+  }];
+}
+
+// The response body for RequestVote
+message RequestVoteResponse {
+  // currentTerm, for candidate to update itself
+  int64 term = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "term number",
+  }];
+  // true means candidate received vote
+  bool vote_granted = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "vote granted",
+  }];
+}
+
+// The request payload for AppendEntries
+message AppendEntriesRequest{
+  // leader’s term
+  int64 term = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "term number",
+  }];
+  // so follower can redirect clients
+  int64 leader_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "leader id",
+  }];
+  // index of log entry immediately preceding new ones
+  int64 prev_log_index = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "prev log index",
+  }];
+  // term of prevLogIndex entry
+  int64 prev_log_term = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "prev log term",
+  }];
+  // log entries to store (empty for heartbeat; may send more than one for efficiency)
+  repeated LogEntry entries = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "log entries",
+  }];
+  // leader’s commitIndex
+  int64 leader_commit = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "leader commit",
+  }];
+}
+
+// LogEntry
+message LogEntry {
+  // command
+  bytes command = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "command",
+  }];
+  // term
+  int64 term = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "term number",
+  }];
+}
+
+// The response body for AppendEntries
+message AppendEntriesResponse {
+  // currentTerm, for leader to update itself
+  int64 term = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "term number",
+  }];
+  // true if follower contained entry matching prevLogIndex and prevLogTerm
+  bool success = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "success",
+  }];
+}
