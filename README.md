@@ -1,5 +1,5 @@
 <h1>
-  <img src=".logo.png" align="left" height="100px" alt="Popple logo"/>
+  <img src="https://raw.githubusercontent.com/hoorayman/popple/main/logo.png" align="left" height="100px" alt="Popple logo"/>
   <span>Popple</span>
 </h1>
 
@@ -65,4 +65,4 @@ How to contact?
 Contribute
 ===============
 
-For Popple, if you have any questions, you can give Issues, or you can also directly start Pull Requests(but I recommend giving issues first to communicate).
+For Popple, if you have any questions, welcome to issue, or you can also directly start Pull Requests. Thank you for your interest in contributing!
