@@ -127,10 +127,10 @@ func (rp *RaftPersistent) AppendLog(rollback, entries []LogEntry) error {
 	newUsedSize := currentFileSize + int64(buf.Len())
 	*rp.used = newUsedSize
 
-	err := unix.Msync(rp.data, unix.MS_SYNC)
-	if err != nil {
-		return err
-	}
+	// err := unix.Msync(rp.data, unix.MS_SYNC)
+	// if err != nil {
+	// 	return err
+	// }
 
 	return nil
 }
@@ -141,7 +141,8 @@ func (rp *RaftPersistent) LogLen() int64 {
 
 func (rp *RaftPersistent) SetTerm(term int64) error {
 	*rp.term = term
-	return unix.Msync(rp.data, unix.MS_SYNC)
+	// return unix.Msync(rp.data, unix.MS_SYNC)
+	return nil
 }
 
 func (rp *RaftPersistent) GetTerm() int64 {
@@ -150,7 +151,8 @@ func (rp *RaftPersistent) GetTerm() int64 {
 
 func (rp *RaftPersistent) SetVotedFor(votefor int64) error {
 	*rp.votedfor = votefor
-	return unix.Msync(rp.data, unix.MS_SYNC)
+	// return unix.Msync(rp.data, unix.MS_SYNC)
+	return nil
 }
 
 func (rp *RaftPersistent) GetVotedFor() int64 {

@@ -10,6 +10,8 @@ ECHO = echo
 RM = rm -rf
 MKDIR = mkdir
 
+CLIENT = github.com/hoorayman/popple/cmd/popcli
+
 .PHONY: test grpc
 
 default: test lint vet
@@ -58,6 +60,10 @@ BUILD_PATH = $(shell if [ "$(CI_DEST_DIR)" != "" ]; then echo "$(CI_DEST_DIR)" ;
 build:
 	@$(ECHO) "Will build on "$(BUILD_PATH)
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -a -ldflags "-w -s" -v -o $(BUILD_PATH)/bin/${MODULE} $(ROOT_PACKAGE)
+
+client:
+	@$(ECHO) "Will build on "$(BUILD_PATH)
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -a -ldflags "-w -s" -v -o $(BUILD_PATH)/bin/${MODULE} ${CLIENT}
 
 help:
 	@$(ECHO) "Targets:"
